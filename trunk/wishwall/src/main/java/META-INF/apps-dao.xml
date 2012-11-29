@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	
+	<!-- 扫描com.baobaotao.dao包下所有标注@Repository的DAO组件 -->
+    <context:component-scan base-package="com.realization.dao"/>
+    
+    <!--对数据配置文件进行加密    使用了自定义的属性加载器之后，就不能使用context:property-placeholder加载了 -->
+    <!--
+    <context:property-placeholder location="classpath:/META-INF/db.properties"/> 
+    <bean class="com.realization.wishwall.init.EncryptPropertyPlaceholderConfigurer"
+    	  p:location="classpath:/META-INF/db.properties"/>-->  
+
+	<bean class="com.realization.wishwall.init.EncryptPropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+		  		<value>classpath:/META-INF/db.properties</value>
+		  		<value>classpath:/META-INF/communicate.properties</value>
+		  	</list>
+		</property>
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"
+	    p:driverClassName="${jdbc.driverClassName}"
+	    p:url="${jdbc.url}"
+	    p:username="${jdbc.username}"
+	    p:password="${jdbc.password}" />
+	
+	<!-- 在数据源基础上，不同orm框架拥有自己的基础实例， 他们是orm运行是的底层设施，在程序级别代表着orm框架本身
+			hibernate 为 sessionFactory   ，ibatis为SqlMapClient 
+	 -->
+	<!-- hibernate 配置单元   -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 指定实体扫描路径  -->
+	    <property name="packagesToScan">
+            <list>
+                <value>com.realization.wishwall.models</value>
+            </list>
+        </property>
+        <!-- hibernate属性配置-->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 二级缓存配置  -->
+				<prop key="hibernate.cache.provider_class">
+					org.hibernate.cache.EhCacheProvider
+				</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+		<!-- 缓存策略配置  -->
+		<property name="entityCacheStrategies">
+			<props>
+				
+				<!-- 非严格读写缓存   。  fixedRegion 缓存区代表永不过期得使用缓存对象。不使用硬盘，所有的数据都在内存中 -->
+				<!-- <prop key="com.baobaotao.domain.Board">nonstrict-read-write,fixedRegion</prop>
+				-->
+				<!-- freqChangeRegion缓存区 适用于数目较大，而且易于更改的缓存对象
+					使用硬盘缓存，闲置一定时间后（参考ehcache配置）从缓存中清除
+				 -->
+				<!-- 
+				<prop key="com.baobaotao.domain.User">nonstrict-read-write,freqChangeRegion</prop>
+				<prop key="com.baobaotao.domain.Topic">read-write,freqChangeRegion</prop>
+				<prop key="com.baobaotao.domain.Post">read-write,freqChangeRegion</prop>
+				-->
+			</props>
+		</property>
+	</bean>
+
+	<!-- 模板要持有orm的基础实例 -->
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate"
+		 p:sessionFactory-ref="sessionFactory" />
+</beans>
