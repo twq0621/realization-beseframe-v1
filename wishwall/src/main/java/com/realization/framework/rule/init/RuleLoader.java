@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.realization.framework.rule;
+package com.realization.framework.rule.init;
 
 import java.util.List;
+
+import com.realization.framework.rule.entity.Rule;
 
 /**
  *  构造规则链

@@ -1,20 +1,18 @@
 /**
  * 
  */
-package com.realization.framework.rule.impl;
+package com.realization.framework.rule.init.impl;
 
 import javax.annotation.Resource;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-
-import com.realization.framework.rule.RuleContextLoader;
 import com.realization.framework.rule.RuleEngine;
-import com.realization.framework.rule.RuleLoader;
+import com.realization.framework.rule.entity.Rule;
+import com.realization.framework.rule.init.RuleContextLoader;
+import com.realization.framework.rule.init.RuleLoader;
 
 
 /**
@@ -31,10 +29,12 @@ public class RuleContextLoaderImpl implements RuleContextLoader{
 	
 	private static final Log log = LogFactory.getLog(RuleContextLoaderImpl.class);
 
-	@Resource
-	private ApplicationContext ctx;
+//	@Resource
+//	private ApplicationContext ctx;
 	
-	@Resource RuleLoader  ruleLoader;
+	@Resource(name="xmlRuleLoader") RuleLoader ruleLoader;
+	
+	@Resource(name="ruleEngine") RuleEngine ruleEngine;
 
 	@Override
 	public void init() {
@@ -45,8 +45,8 @@ public class RuleContextLoaderImpl implements RuleContextLoader{
 			log.error(" =====  rule engine init failure when load rule configuration  ", e);
 			return ;
 		}
-		RuleEngine engine =  ctx.getBean("ruleEngine",RuleEngine.class);
-		engine.initEngine(ruleLoader.getRuleList());
+		
+		ruleEngine.initEngine(ruleLoader.getRuleList());
 		
 		log.debug(" rule engine init success ... ");
 	}

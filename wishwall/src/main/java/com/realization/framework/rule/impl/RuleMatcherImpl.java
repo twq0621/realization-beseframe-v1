@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 
 import com.realization.framework.core.init.CompomentConfiguration;
 import com.realization.framework.messaging.IpcMessage;
-import com.realization.framework.rule.Rule;
 import com.realization.framework.rule.RuleMatcher;
+import com.realization.framework.rule.entity.Rule;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class RuleMatcherImpl implements RuleMatcher<Class<?>> {
 	 */
 	@Override
 	public boolean match(Class<?> t, Rule rule, Object params) {
-		String paramStr = rule.getParsmMap().get(t);
+		String paramStr = rule.getParsmMap().get(t.getName());
 		String[] ps = paramStr.split("==");
 		/*
 		 *只检查IpcMessage 

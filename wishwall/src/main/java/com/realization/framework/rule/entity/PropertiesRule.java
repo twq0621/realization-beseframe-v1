@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.realization.framework.rule;
+package com.realization.framework.rule.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
+
+import com.realization.framework.rule.AbstractCommand;
 
 /**
  * 	规则实体，从配置文件中获取信息
@@ -20,9 +21,11 @@ import java.util.TreeSet;
  *  @description  realization-BaseFrame
  *  @版权所有     Realization 团队
  */
-public class Rule implements Comparable<Rule>{
+public class PropertiesRule implements Rule{
 
 	private String ruleNmae;
+	
+//	private String type ; 
 	
 	private int priority ;
 	
@@ -34,18 +37,16 @@ public class Rule implements Comparable<Rule>{
 	
 	private List <Class<?>>  paramsList = new ArrayList<Class<?>>();
 	
-	private Map<Class<?>,String> parsmMap = new HashMap<Class<?>, String>();
+	private Map<String,String> parsmMap = new HashMap<String, String>();
 	
-	public Rule(String name , int priority ,String cmd){
+	public PropertiesRule(String name , int priority ,String cmd){
 		this.ruleNmae = name;
 		this.priority = priority;
 		this.cmd= cmd;
 	}
 	
-	public Rule(){
+	public PropertiesRule(){
 	}
-	
-	
 
 	@Override
 	public int compareTo(Rule r) {
@@ -82,6 +83,16 @@ public class Rule implements Comparable<Rule>{
 		this.cmd = cmd;
 	}
 
+	@Override
+	public Map<String, String> getParsmMap() {
+		return this.parsmMap;
+	}
+
+	@Override
+	public String getConditionByType(String type) {
+		return this.getParsmMap().get(type);
+	}
+
 	public List<String> getCmdStrList() {
 		return cmdStrList;
 	}
@@ -90,39 +101,10 @@ public class Rule implements Comparable<Rule>{
 		return cmdList;
 	}
 
-	/**
-	 * @return the paramsList
-	 */
 	public List <Class<?>> getParamsList() {
 		return paramsList;
 	}
 
-	public static void main(String[] args) {
-		Rule r1 = new Rule();
-		r1.setPriority(1);
-		Rule r2 = new Rule();
-		r2.setPriority(3);
-		Rule r3 = new Rule();
-		r3.setPriority(2);
-		Rule r4 = new Rule();
-		r4.setPriority(2);
-		r4.setRuleNmae("rule 4");
-		
-		List<Rule> rList = new ArrayList<Rule>();
-		rList.add(r3);
-		rList.add(r2);
-		rList.add(r1);
-		rList.add(r4);
-		TreeSet<Rule> set = new TreeSet<Rule>();
-		set.addAll(rList);
-		for(Rule rule : set){
-			System.err.println(rule);
-		}
-	}
-
-	public Map<Class<?>, String> getParsmMap() {
-		return parsmMap;
-	}
 
 
 }

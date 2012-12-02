@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.realization.framework.rule;
+package com.realization.framework.rule.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

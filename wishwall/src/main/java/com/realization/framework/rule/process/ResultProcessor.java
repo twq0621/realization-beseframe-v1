@@ -1,4 +1,4 @@
-package com.realization.framework.rule;
+package com.realization.framework.rule.process;
 
 /**
  * 	规则命令结果集处理接口

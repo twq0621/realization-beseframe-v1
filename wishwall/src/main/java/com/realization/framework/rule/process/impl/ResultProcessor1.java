@@ -1,8 +1,8 @@
-package com.realization.framework.rule.impl;
+package com.realization.framework.rule.process.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.realization.framework.rule.ResultProcessor;
+import com.realization.framework.rule.process.ResultProcessor;
 
 /**
  *  @author xiai_fei

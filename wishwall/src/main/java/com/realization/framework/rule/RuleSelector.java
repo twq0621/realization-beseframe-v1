@@ -3,6 +3,9 @@
  */
 package com.realization.framework.rule;
 
+import com.realization.framework.rule.entity.Rule;
+
+
 /**
  *  @author xiai_fei
  *
