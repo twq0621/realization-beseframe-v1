@@ -1,4 +1,4 @@
-package com.realization.framework.rule;
+package com.realization.framework.rule.init;
 
 
 

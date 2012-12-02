@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import com.realization.framework.common.CommandException;
 import com.realization.framework.common.MessageFactory;
 import com.realization.framework.messaging.IpcMessage;
+import com.realization.framework.rule.entity.ProcessResult;
 
 /**
  *  @author xiai_fei

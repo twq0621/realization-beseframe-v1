@@ -1,4 +1,4 @@
-package com.realization.framework.rule.impl;
+package com.realization.framework.rule.process.impl;
 
 import javax.annotation.Resource;
 
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.realization.framework.messaging.IpcMessage;
 import com.realization.framework.rule.MessageSender;
-import com.realization.framework.rule.ProcessResult;
-import com.realization.framework.rule.ResultProcessor;
+import com.realization.framework.rule.entity.ProcessResult;
+import com.realization.framework.rule.process.ResultProcessor;
 
 /**
  *  @author xiai_fei

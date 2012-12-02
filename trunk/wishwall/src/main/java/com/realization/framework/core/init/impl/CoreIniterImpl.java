@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.realization.framework.communicate.async.netty.MessageReceiver;
 import com.realization.framework.core.init.CoreIniter;
-import com.realization.framework.rule.RuleIniter;
+import com.realization.framework.rule.init.RuleContextLoader;
+import com.realization.framework.rule.init.RuleIniter;
 
 /**
  *  @author xiai_fei
@@ -25,7 +26,9 @@ public class CoreIniterImpl implements CoreIniter{
 	
 	private static final Log log = LogFactory.getLog(CoreIniterImpl.class);
 	
-	@Resource RuleIniter ruleIniter;
+//	@Resource RuleIniter ruleIniter;
+	
+	@Resource RuleContextLoader ruleContextLoader;
 	
 	@Resource MessageReceiver messageReceiver;
 	
@@ -33,7 +36,7 @@ public class CoreIniterImpl implements CoreIniter{
 	
 	@Override
 	public boolean init() {
-		ruleIniter.initRule();
+		ruleContextLoader.init();
 //		String communicateSuit = CompomentConfiguration.getValue("communicate");
 		messageReceiver.start();
 //		try {

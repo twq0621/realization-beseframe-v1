@@ -7,9 +7,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
-import com.realization.framework.rule.Rule;
 import com.realization.framework.rule.RuleMatcher;
 import com.realization.framework.rule.RuleSelector;
+import com.realization.framework.rule.entity.Rule;
 
 /**
  * 
@@ -30,9 +30,12 @@ public class RuleSelectorImpl implements RuleSelector{
 	
 	private static final Log log =LogFactory.getLog(RuleSelectorImpl.class);
 
+	/*
+	 * 这里默认是不允许传入的参数为0长度的的
+	 */
 	@Override
 	public boolean isSelect(Rule rule,Object...args) {
-		if(args==null||rule.getParamsList().size()>args.length){
+		if(args==null||args.length==0||rule.getParamsList().size()!=args.length){
 			log.debug("  如果传入的参数少于规则文件addCommand中的参数，则任务不匹配");
 			return false;
 		}

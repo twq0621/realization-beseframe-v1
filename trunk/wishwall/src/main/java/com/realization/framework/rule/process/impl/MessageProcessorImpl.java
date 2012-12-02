@@ -12,10 +12,10 @@ import com.realization.framework.communicate.nio.Channel;
 import com.realization.framework.communicate.nio.MessageFact;
 import com.realization.framework.messaging.IpcMessage;
 import com.realization.framework.messaging.message.Message;
-import com.realization.framework.rule.ProcessResult;
-import com.realization.framework.rule.ResultProcessor;
 import com.realization.framework.rule.RuleEngine;
+import com.realization.framework.rule.entity.ProcessResult;
 import com.realization.framework.rule.process.MessageProcessor;
+import com.realization.framework.rule.process.ResultProcessor;
 
 /**
  *  @author xiai_fei

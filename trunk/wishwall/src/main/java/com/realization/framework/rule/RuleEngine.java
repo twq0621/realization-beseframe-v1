@@ -5,6 +5,8 @@ package com.realization.framework.rule;
 
 import java.util.List;
 
+import com.realization.framework.rule.entity.Rule;
+
 
 
 /**
@@ -16,7 +18,7 @@ import java.util.List;
  *  @description  realization-BaseFrame
  *  @版权所有     Realization 团队
  */
-public interface RuleEngine {
+public interface RuleEngine{
 	
 	public void initEngine() ;
 	

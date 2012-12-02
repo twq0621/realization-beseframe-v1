@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.realization.framework.rule.CommandListResulter;
-import com.realization.framework.rule.ProcessResult;
+import com.realization.framework.rule.entity.ProcessResult;
 
 /**
  *  @author xiai_fei

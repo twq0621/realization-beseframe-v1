@@ -15,11 +15,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.realization.framework.rule.CommandChain;
-import com.realization.framework.rule.ResultProcessor;
-import com.realization.framework.rule.Rule;
 import com.realization.framework.rule.RuleEngine;
-import com.realization.framework.rule.RuleLoader;
 import com.realization.framework.rule.RuleSelector;
+import com.realization.framework.rule.entity.PropertiesRule;
+import com.realization.framework.rule.entity.Rule;
+import com.realization.framework.rule.init.RuleLoader;
+import com.realization.framework.rule.process.ResultProcessor;
 
 /**
  * 
@@ -43,7 +44,7 @@ public class DefaultRuleEngine  implements RuleEngine{
 
 	private  final TreeSet<Rule> ruleList = new TreeSet<Rule>();  //是否有并发危险？
 	
-	@Resource private RuleLoader ruleLoader;
+	@Resource(name="xmlRuleLoader") private RuleLoader ruleLoader;
 	
 	@Resource private ApplicationContext ctx;
 	
@@ -82,6 +83,10 @@ public class DefaultRuleEngine  implements RuleEngine{
 		if(priority>rule.getPriority()) return ;
 		if(!selector.isSelect(rule, args))return ;
 		log.info(" enging execute rule start ... ");
+		if(rule.getCmdList().isEmpty()){
+			log.debug(" rule " + rule.getRuleNmae()+" command list is empty");
+			return ;
+		}
 		CommandChain chain = new CommandChain(rule.getCmdList().iterator());
 		chain.doProcess(args);
 		doResults(chain.getResultList().toArray());

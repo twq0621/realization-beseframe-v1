@@ -1,4 +1,4 @@
-package com.realization.framework.rule;
+package com.realization.framework.rule.init;
 
 /**
  *  @author xiai_fei
@@ -11,5 +11,5 @@ package com.realization.framework.rule;
  */
 public interface RuleIniter {
 
-	public boolean initRule();
+//	public boolean initRule();
 }
