@@ -1,0 +1,21 @@
+<Rules>
+	<Rule name="seconde" type="start">
+	  <when>
+		<priority>2</priority>
+		<property name="$p" type= "com.realization.framework.messaging.IpcMessage" condition="msgCode==701"/>
+		</when>
+	  <then>
+		<command>registerHandler</command>
+	  </then>
+	</Rule>
+	
+	<Rule name="first" type="start">
+	  <when>
+		<priority>1</priority>
+		<property name="$p" type= "com.realization.framework.messaging.IpcMessage" condition="msgCode==707"/>
+		</when>
+	  <then>
+		<command></command>
+	  </then>
+	</Rule>
+</Rules>
