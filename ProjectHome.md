@@ -1,0 +1,1 @@
+整合spring，hibernate，struts，netty，jetty，nio的相关技术的一个积累的框架，还有规则引擎等
